@@ -20,22 +20,44 @@ public class TraitRandomiser {
 			filePath = userFilePath;
 		}
 		
-		inputScanner.close();
-		
 		// Create new file reader to import traits
 		TraitFileReader fileReader = new TraitFileReader(filePath);
 		
 		// Create new List to hold Traits and populate it
 		ArrayList<Trait> traits = fileReader.readFile();
 		
-		// Determine index of trait to get
-		int index = generateRandomNumber(0, (traits.size() - 1));
+		boolean generate = true;
 		
-		// Retrieve a trait from the list
-		Trait randomlySelectedTrait = traits.get(index);
+		while(generate) {
 		
-		// Print out the random trait
-		System.out.println(randomlySelectedTrait.getName());
+			// Determine index of trait to get
+			int index = generateRandomNumber(0, (traits.size() - 1));
+			
+			// Retrieve a trait from the list
+			Trait randomlySelectedTrait = traits.get(index);
+			
+			// Print out the random trait
+			System.out.println(randomlySelectedTrait.getName());
+			System.out.println();
+			
+			// Check if user would like another trait
+			System.out.println("Would you like another? (Y/n)");
+			
+			// Read their response
+			String userResponse = inputScanner.nextLine();
+			
+			// Check if input is empty
+			if ((userResponse.trim()).equals("n")) {
+				
+				generate = false;
+				
+			} else if ((userResponse.trim()).equals("y")) {
+				
+				
+			}
+		}
+		
+		inputScanner.close();
 	}
 	
 	private static int generateRandomNumber(int lowerBound, int upperBound) {
