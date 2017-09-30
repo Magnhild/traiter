@@ -4,14 +4,21 @@ public class TraitRandomiser {
 
 	public static void main(String[] args) {
 		
-		String filePath;
+		String filePath = "C:\\Users\\magnh\\Desktop\\traits.csv";
 		
 		// Prompt user for input
-		System.out.println("Please enter the filepath: ");
+		System.out.println("Please enter the filepath or leave blank to use default: ");
 		
 		// Read filepath from user
 		Scanner inputScanner = new Scanner(System.in);
-		filePath = inputScanner.nextLine();
+		
+		String userFilePath = inputScanner.nextLine();
+		
+		// Check if input is empty
+		if (!(userFilePath.trim()).equals("")) {
+			
+			filePath = userFilePath;
+		}
 		
 		inputScanner.close();
 		
