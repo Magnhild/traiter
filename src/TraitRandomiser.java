@@ -2,6 +2,10 @@ import java.util.*;
 
 public class TraitRandomiser {
 
+	// Attributes
+	private static Scanner inputScanner;
+	private static ArrayList<Trait> traits;
+	
 	public static void main(String[] args) {
 		
 		String filePath = "C:\\Users\\magnh\\Desktop\\traits.csv";
@@ -10,7 +14,7 @@ public class TraitRandomiser {
 		System.out.println("Please enter the filepath or leave blank to use default: ");
 		
 		// Read filepath from user
-		Scanner inputScanner = new Scanner(System.in);
+		inputScanner = new Scanner(System.in);
 		
 		String userFilePath = inputScanner.nextLine();
 		
@@ -24,40 +28,154 @@ public class TraitRandomiser {
 		TraitFileReader fileReader = new TraitFileReader(filePath);
 		
 		// Create new List to hold Traits and populate it
-		ArrayList<Trait> traits = fileReader.readFile();
+		traits = fileReader.readFile();
 		
-		boolean generate = true;
+		// Perform trait generation
+		generateTrait();
 		
-		while(generate) {
+		// Close input scanner
+		inputScanner.close();
+	}
+
+	private static void generateTrait() {
 		
+		// Perform trait generation
+		boolean generateAgain = false;
+		do {
+		
+			int nature = retrieveNatureFromUser();
+			
+			ArrayList<Trait> listToChooseFrom = traits;
+			
+			if (nature != 4) {
+			
+				// Determine subset of traits to choose from
+				listToChooseFrom =  filterTraitList(nature);
+			} 
+			
 			// Determine index of trait to get
-			int index = generateRandomNumber(0, (traits.size() - 1));
+			int index = generateRandomNumber(0, (listToChooseFrom.size() - 1));
 			
 			// Retrieve a trait from the list
-			Trait randomlySelectedTrait = traits.get(index);
+			Trait randomlySelectedTrait = listToChooseFrom.get(index);
 			
 			// Print out the random trait
 			System.out.println(randomlySelectedTrait.getName());
 			System.out.println();
 			
-			// Check if user would like another trait
-			System.out.println("Would you like another? (Y/n)");
 			
-			// Read their response
-			String userResponse = inputScanner.nextLine();
+			// Ask user if they wish to generate another trait
+			boolean inputIsYesOrNo;
+			do {
 			
-			// Check if input is empty
-			if ((userResponse.trim()).equals("n")) {
+				// Check if user would like another trait
+				System.out.println("Would you like another? (Y/n)");
 				
-				generate = false;
+				// Read their response
+				String userResponse = inputScanner.nextLine();
 				
-			} else if ((userResponse.trim()).equals("y")) {
+				// Check if input is empty
+				if ((userResponse.trim()).equals("n")) {
+					
+					generateAgain = false;
+					inputIsYesOrNo = true;
+					
+				} else if ((userResponse.trim()).equals("y")) {
+					
+					generateAgain = true;
+					inputIsYesOrNo = true;
 				
+				} else {
+					
+					System.out.println("Input should be 'y' or 'n'");
+					inputIsYesOrNo = false;
+				}
 				
+			} while (!inputIsYesOrNo);
+			
+		} while (generateAgain);
+		
+	}
+	
+	private static int retrieveNatureFromUser() {
+		
+		int userNature = 4;
+		
+		// Read user choice of trait nature and validate it is correct
+		boolean validInput = false;
+		do {
+
+			// Ask for user input of trait nature 
+			System.out.println("Which nature would you prefer?");
+			System.out.println("1. Good");
+			System.out.println("2. Neutral");
+			System.out.println("3. Bad");
+			System.out.println("4. Random");
+			
+			// Read user input and validate it is numerical
+			try {
+					
+				userNature = inputScanner.nextInt();
+				inputScanner.nextLine();
+				validInput = true;
+			
+			} catch (InputMismatchException ex) {
+				
+				System.out.println("Input must be numerical!");
+				inputScanner.nextLine();
+				validInput = false;
+			}
+			
+			if (!validInput) {
+				
+				break;
+			}
+			
+			// Check if user input is a valid selection
+			switch (userNature) {
+			case 1:
+				validInput = true;
+				break;
+			case 2: 
+				userNature = 0;
+				validInput = true;
+				break;
+			case 3: 
+				userNature = -1;
+				validInput = true;
+				break;
+			case 4: 
+				validInput = true;
+				break;
+				
+			default: 
+				System.out.println("Input should be '1', '2', '3' or '4'");
+				validInput = false;
+				break;
+			}
+			
+		} while (!validInput);
+		
+		
+		
+		return userNature;
+	}
+
+	private static ArrayList<Trait> filterTraitList(int nature) {
+		
+		// Create new list
+		ArrayList<Trait> subTraitList = new ArrayList<Trait>();
+				
+		// Look through main list
+		for (Trait trait : traits) {
+								
+			if (nature == trait.getNature()) {
+				
+				subTraitList.add(trait);
 			}
 		}
 		
-		inputScanner.close();
+		return subTraitList;  
 	}
 	
 	private static int generateRandomNumber(int lowerBound, int upperBound) {
