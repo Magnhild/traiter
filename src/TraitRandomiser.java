@@ -1,3 +1,4 @@
+import java.sql.*;
 import java.util.*;
 
 public class TraitRandomiser {
@@ -8,33 +9,13 @@ public class TraitRandomiser {
 	
 	public static void main(String[] args) {
 		
-		String filePath = "C:\\Users\\magnh\\Desktop\\traits.csv";
-		
-		// Prompt user for input
-		System.out.println("Please enter the filepath or leave blank to use default: ");
-		
-		// Read filepath from user
 		inputScanner = new Scanner(System.in);
 		
-		String userFilePath = inputScanner.nextLine();
-		
-		// Check if input is empty
-		if (!(userFilePath.trim()).equals("")) {
-			
-			filePath = userFilePath;
-		}
-		
-		// Create new file reader to import traits
-		TraitFileReader fileReader = new TraitFileReader(filePath);
-		
-		// Create new List to hold Traits and populate it
-		traits = fileReader.readFile();
+		// Retrieve traits from database 
+		traits = getTraitsFromDatabase(); 
 		
 		// Perform trait generation
 		generateTrait();
-		
-		// Close input scanner
-		inputScanner.close();
 	}
 
 	private static void generateTrait() {
@@ -187,5 +168,62 @@ public class TraitRandomiser {
 		int randomNumber = rand.nextInt((upperBound - lowerBound) + 1) + lowerBound;
 		
 		return randomNumber;
+	}
+
+	private static ArrayList<Trait> getTraitsFromDatabase() {
+		
+		ArrayList<Trait> traitList = new ArrayList<Trait>();
+		
+		// Retrieve data from database
+		ResultSet results = executeQueryOnDatabase("jdbc:sqlserver://localhost;databaseName=TraitsDB;user=traits_app;password=12345", "SELECT T.id AS id, T.name AS name, C.name AS category, T.nature AS nature FROM TaTraits AS T LEFT JOIN TaCategories AS C ON T.category_id = C.id;");
+		
+		// Retrieve traits from database result set
+		try {
+			
+			while (results.next()) { 
+				
+				int traitId = results.getInt("id");
+				String traitName = results.getString("name");
+				String traitCategory = results.getString("category");
+				int traitNature = results.getInt("nature");
+				
+				Trait trait = new Trait(traitId, traitName, traitCategory, traitNature); 
+				traitList.add(trait);
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return traitList; 
+	}
+	
+	private static ResultSet executeQueryOnDatabase(String connectionString, String query) {
+		
+		ResultSet resultSet = null;
+		
+		try {
+		
+			// Load driver
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+		
+		try {
+			
+			Connection connection = DriverManager.getConnection(connectionString);
+			Statement statement = connection.createStatement();
+			resultSet = statement.executeQuery(query);
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+		return resultSet;
 	}
 }
