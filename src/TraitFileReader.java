@@ -45,7 +45,7 @@ public class TraitFileReader {
 				int nature = Integer.parseInt(traitArray[2]);
 				
 				// Create new trait from these variables
-				Trait trait = new Trait(name, category, nature);
+				Trait trait = new Trait(1, name, category, nature);
 				
 				// Add this new trait to the list that will be returned
 				traitList.add(trait);

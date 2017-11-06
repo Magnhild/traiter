@@ -2,14 +2,16 @@
 public class Trait {
 
 	// Attributes
+	private int mId; 
 	private String mName;
 	private String mCategory;
 	private int mNature;
 	
 	
 	// Constructor
-	public Trait(String name, String category, int nature) {
+	public Trait(int id, String name, String category, int nature) {
 		
+		mId = id;
 		mName = name;
 		mCategory = category;
 		
@@ -25,6 +27,11 @@ public class Trait {
 	
 	
 	// Methods
+	public int getId() {
+		
+		return mId;
+	}
+	
 	public String getName() {
 		
 		return mName;	
