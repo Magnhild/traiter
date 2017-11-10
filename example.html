@@ -1,0 +1,161 @@
+<!-- This tag informs the application parsing the document what type it is -->
+<!DOCTYPE html>
+
+<!-- This tag serves as the root node for the whole document -->
+<html>
+    <!-- The head tag holds metadata about the page, including the title and
+         icon to display along with the page, any CSS stylesheets and script -->
+    <head>
+        <!-- Chrome and most browsers now implement tabbed browsing, so the
+             title is displayed there. It really is down to the browser how
+             the document is interpreted! -->
+        <title>HTML Cheat Sheet</title>
+    </head>
+    <!-- The body tag is where all the elements to be displayed live -->
+    <body>
+        <!-- Elements can be grouped by sections using the <section> tag.
+             <header> and <footer> are essentially just <section> tags under a
+             different name. -->
+        <header>
+            <!-- By using the correct tags, even if the stylesheet is not provided
+                 or is invalid, the browser can use its default stylesheet to format
+                 your document -->
+            <h1>Main header</h1>
+            <h2>Subheader</h2>
+        </header>
+
+        <br/>
+
+        <section id="main_content">
+            <!-- A paragraph -->
+            <p>
+                Paragraph of information. Some information can be
+                <em>emphasised</em>, <b>bolded</b> or <i>italicised</i>.
+            </p>
+
+            <!-- The ?unordered? list tag allows you to create a list. This
+                 tag is also commonly used to provide the navigation bar. -->
+            <ul>
+                <!-- The list item tag is used in conjunction with the <ul> tag -->
+                <li><a href="#bottom">Bottom Paragraph</a></li>
+                <li>List Item 2</li>
+                <li>List Item 3</li>
+            </ul>
+
+            <!-- The image tag allows you to embed an image in your document. -->
+            <img src="/images/logo.png" alt="Text to display if the image wasn't found. Also for the
+            benefit of visually impaired users." />
+
+            <p>
+                <!-- The anchor tag provides a way to link to other locations -->
+                <a href="http://www.google.co.uk">This</a> is a link.
+            </p>
+
+            <p id="paragraph1">
+                By providing an id to a tag, it becomes possible to navigate to it
+                within the context of the document
+            </p>
+
+            <p id="paragraph2" class="paragraph">
+                The ID attribute uniquely refers to a single element. The class
+                attribute allows multiple elements to be referenced. This is useful
+                for things like applying styling to multiple elements; if you wanted
+                all your paragraphs to have a certain font, for example.
+            </p>
+
+            <section id="form_section">
+                <!-- The form element allows you to take inputs from a user -->
+                <form id="form">
+
+                    <h3>Form Title</h3>
+
+                    <section>
+                        <!-- Specifying the input type is enough for the browser
+                             to decide what to display. Add the 'for' attribute
+                             to a label links it with the input. -->
+                        <label for="name">Name:</label>
+                        <input id="name" type="text" required autofocus />
+                    </section>
+
+                    <br/>
+
+                    <section>
+                        <label for="age">Age:</label>
+                        <input id="age" type="number" min=13 max=150 />
+                    </section>
+
+                    <br/>
+
+                    <section>
+                        <label for="colour">Favourite Colour:</label>
+                        <input id="colour" type="color" value="#00ff00"/>
+                    </section>
+
+                    <br/>
+
+                    <section>
+                        <label for="gender">Gender</label>
+                        <select id="gender">
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </section>
+
+                    <br/>
+
+                    <section>
+                        <label for="married">Married:</label>
+                        <input id="married" type="checkbox" />
+                    </section>
+
+                    <br/>
+
+                    <section>
+                        <input id="submit" type="submit" value="Submit" action="javascript:void(0)" />
+                    </section>
+                </form>
+            </section>
+
+            <!-- Some tags can be self closing, like the break tag -->
+            <br/>
+
+            <section id="table_section">
+                <!-- The table element allows you to display data in a table -->
+                <table id="table">
+                    <!-- tr: table row -->
+                    <tr>
+                        <!-- th: table header -->
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                        <th>Column 3</th>
+                    </tr>
+                    <tr>
+                        <!-- td: table data -->
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                    </tr><tr>
+                        <!-- td: table data -->
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                    </tr><tr>
+                        <!-- td: table data -->
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                    </tr>
+                </table>
+            </section>
+        </section>
+
+        <br/>
+
+        <p id="bottom">This is the bottom paragraph</p>
+
+        <footer>
+            Websites typically put the less important links and information here
+            in the footer tag.
+        </footer>
+    </body>
+</html>
