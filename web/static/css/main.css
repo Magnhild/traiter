@@ -1,0 +1,89 @@
+/*
+  tag {
+
+  }
+
+  #id {
+
+  }
+
+  .class {
+
+  }
+
+  tag:property {
+    (A property could be 'hover' for example)
+  }
+*/
+
+* {
+  /* Use sans serif font throughout site */
+  font-family: sans-serif;
+
+  /* Remove any browser-CSS provided margins/padding */
+  margin:0;
+  padding:0;
+}
+
+html {
+
+}
+
+#navsection {
+  width: 20%;
+  margin: 0;
+  padding: 0;
+}
+
+#content {
+  margin-left: 20%;
+  padding: 1%;
+}
+
+#navsection ul {
+
+  /* Remove bullet points from uL */
+  list-style-type: none;
+
+  /* Spacing */
+  margin: 0;
+  padding: 0;
+  width: 20%;
+  height: 100%;
+  position: fixed;
+  overflow: auto;
+
+  /* Colour */
+  background-color: #f1f1f1;
+}
+
+#navsection ul li {
+
+  
+}
+
+#navsection ul li.active {
+
+    /* Colour */
+    background-color: #4CAF50;
+    color: #ffffff;
+}
+
+#navsection ul li a {
+
+    /* Spacing */
+    display: block;
+    margin: 0;
+    padding: 10px;
+
+    /* Colour */
+    color: #00cc00;
+    text-decoration: none;
+}
+
+#navsection ul li a:hover {
+
+    /* Colour */
+    background-color: #555555;
+    color: #ffffff;
+}
