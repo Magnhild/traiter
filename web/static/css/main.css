@@ -31,8 +31,6 @@ html {
 
 #navsection {
   width: 20%;
-  margin: 0;
-  padding: 0;
 }
 
 #content {
@@ -46,8 +44,6 @@ html {
   list-style-type: none;
 
   /* Spacing */
-  margin: 0;
-  padding: 0;
   width: 20%;
   height: 100%;
   position: fixed;
@@ -59,31 +55,21 @@ html {
 
 #navsection ul li {
 
-  
+  /* Spacing */
+  display: block;
+  padding: 10%;
 }
 
 #navsection ul li.active {
 
-    /* Colour */
-    background-color: #4CAF50;
-    color: #ffffff;
+  /* Colour */
+  background-color: #4CAF50;
+  color: #ffffff;
 }
 
-#navsection ul li a {
+#navsection ul li:hover {
 
-    /* Spacing */
-    display: block;
-    margin: 0;
-    padding: 10px;
-
-    /* Colour */
-    color: #00cc00;
-    text-decoration: none;
-}
-
-#navsection ul li a:hover {
-
-    /* Colour */
-    background-color: #555555;
-    color: #ffffff;
+  /* Colour */
+  background-color: #555555;
+  color: #ffffff;
 }
