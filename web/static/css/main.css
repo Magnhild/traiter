@@ -53,13 +53,6 @@ html {
   background-color: #f1f1f1;
 }
 
-#navsection ul li {
-
-  /* Spacing */
-  display: block;
-  padding: 10%;
-}
-
 #navsection ul li.active {
 
   /* Colour */
@@ -72,4 +65,15 @@ html {
   /* Colour */
   background-color: #555555;
   color: #ffffff;
+}
+
+#navsection ul li a {
+
+  /* Spacing */
+  display: block;
+  padding: 8%;
+
+  /* Colour */
+  text-decoration: none;
+  color: inherit;
 }
