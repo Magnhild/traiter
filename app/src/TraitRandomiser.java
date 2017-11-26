@@ -14,19 +14,25 @@ public class TraitRandomiser {
 		// Retrieve traits from database
 		traits = getTraitsFromDatabase();
 
-    // Perform trait generation
-    do {
-
-      int nature = retrieveNatureFromUser();
-
-  		// Perform trait generation
-  		generateTrait(nature);
-
-      // Print out the random trait
-      System.out.println(randomlySelectedTrait.getName());
-      System.out.println();
-
-    } while (confirmGenerateAgain());
+		Trait trait = null;
+		
+	    // Perform trait generation
+	    do {
+	
+	      int nature = retrieveNatureFromUser();
+	
+  	      // Perform trait generation
+  		  trait = generateTrait(nature);
+  		  
+  		  if (trait != null) {
+  			  
+  			  // Print out the random trait
+  		      System.out.println(trait.getName());
+  		      System.out.println();  		
+  		  }
+  		  
+	     
+	    } while (confirmGenerateAgain());
 	}
 
 	private static Trait generateTrait(int nature) {
@@ -43,7 +49,7 @@ public class TraitRandomiser {
 		if (listToChooseFrom.isEmpty()) {
 
 			System.out.println("No traits found in this category.");
-			return;
+			return null;
 		}
 
 		// Determine index of trait to get
@@ -57,7 +63,7 @@ public class TraitRandomiser {
 
   private static boolean confirmGenerateAgain(){
 
-    boolean generateAgain;
+    boolean generateAgain = false;
 
     // Ask user if they wish to generate another trait
     boolean inputIsYesOrNo;
