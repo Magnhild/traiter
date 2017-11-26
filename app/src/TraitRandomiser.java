@@ -34,6 +34,13 @@ public class TraitRandomiser {
 				listToChooseFrom =  filterTraitList(nature);
 			} 
 			
+			// If trait list is empty, give error message
+			if (listToChooseFrom.isEmpty()) {
+				
+				System.out.println("No traits found in this category.");
+				return;
+			}
+							
 			// Determine index of trait to get
 			int index = generateRandomNumber(0, (listToChooseFrom.size() - 1));
 			
