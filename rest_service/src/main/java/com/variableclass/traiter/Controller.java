@@ -1,7 +1,7 @@
 package com.variableclass.traiter;
 
+import com.google.gson.*;
 import main.java.Trait;
-import main.java.TraitRandomiser;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -9,15 +9,42 @@ public class Controller {
 
   @RequestMapping(
           value = "/traits/generate",
-          method = RequestMethod.GET,
+          method = RequestMethod.POST,
           produces = "application/json"
   )
-  public Trait getTrait(@RequestParam(name = "nature", defaultValue = "4") int nature){
+  public String getTrait(@RequestBody String requestBody){
 
-    TraitRandomiser randomiser = new TraitRandomiser("");
+    JsonParser parser = new JsonParser();
+    JsonObject jsonRequestBody = parser.parse(requestBody).getAsJsonObject();
 
-    Trait trait = randomiser.generateTrait(nature);
+    // Generate trait
+    Trait trait = new Trait(1, "My Trait", "A Category", 0);
 
-    return randomiser.generateTrait(nature);
+    String traitSentence = "Your trait is " + trait.getName();
+
+    JsonObject outputSpeech = new JsonObject();
+    outputSpeech.addProperty("type", "PlainText");
+    outputSpeech.addProperty("text", traitSentence);
+
+    JsonObject card = new JsonObject();
+    card.addProperty("type", "Simple");
+    card.addProperty("title", "Trait: " + trait.getName());
+    card.addProperty("content", traitSentence);
+
+    String version = jsonRequestBody.get("version").getAsString();
+
+    JsonObject sessionAttributes = new JsonObject();
+
+    JsonObject response = new JsonObject();
+    response.add("outputSpeech", outputSpeech);
+    response.add("card", card);
+    response.addProperty("shouldEndSession", true);
+    
+    JsonObject jsonResponse = new JsonObject();
+    jsonResponse.addProperty("version", version);
+    jsonResponse.add("sessionAttributes", sessionAttributes);
+    jsonResponse.add("response", response);
+
+    return jsonResponse.toString();
   }
 }
