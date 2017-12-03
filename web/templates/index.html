@@ -17,45 +17,60 @@
             </ul>
         </section>
         <section id="content">
+
           <h1>Random Trait Generator</h1>
-          <h2>For Sims 4</h2>
-          <section id="form">
-              <form id="trait_form">
-                  <h3>Please select:</h3>
 
-                  <label for="nature">Nature:</label>
-                  <div id="nature">
+          <div id="home">
+            <h2>Home</h2>
+          </div>
 
-                      <label for="nature_random">Random</label>
-                      <input id="nature_random" type="radio" checked/>
+          <div id="generate" class="hidden">
+            <h2>Generate</h2>
 
-                      <label for="nature_good">Positive</label>
-                      <input id="nature_good" type="radio" />
+            <section id="form">
+                <form id="trait_form">
+                    <h3>Please select:</h3>
 
-                      <label for="nature_neutral">Neutral</label>
-                      <input id="nature_neutral" type="radio" />
+                    <label for="nature">Nature:</label>
+                    <div id="nature">
 
-                      <label for="nature_bad">Negative</label>
-                      <input id="nature_bad" type="radio" />
+                        <label for="nature_random">Random</label>
+                        <input id="nature_random" type="radio" checked/>
 
-                  </div>
+                        <label for="nature_good">Positive</label>
+                        <input id="nature_good" type="radio" />
 
-                  <label for="category">Category:</label>
-                  <select id="category">
-                      <option>Random</option>
-                      <option>Social</option>
-                      <option>Lifestyle</option>
-                      <option>Hobby</option>
-                      <option>Emotional</option>
-                  </select>
+                        <label for="nature_neutral">Neutral</label>
+                        <input id="nature_neutral" type="radio" />
 
-                  <input id="submit" type="submit" value="Generate" action="javascript:void(0)" />
-              </form>
-          </section>
+                        <label for="nature_bad">Negative</label>
+                        <input id="nature_bad" type="radio" />
 
-          <section id="output">
-              <label id="generated_trait">TRAIT</label>
-          </section>
+                    </div>
+
+                    <label for="category">Category:</label>
+                    <select id="category">
+                        <option>Random</option>
+                        <option>Social</option>
+                        <option>Lifestyle</option>
+                        <option>Hobby</option>
+                        <option>Emotional</option>
+                    </select>
+
+                    <input id="submit" type="submit" value="Generate" action="javascript:void(0)" />
+                </form>
+            </section>
+
+            <section id="output">
+                <label id="generated_trait">TRAIT</label>
+            </section>
+          </div>
+
+          <div id="about" class="hidden">
+            <h2>About</h2>
+            <p>This is a website</p>
+          </div>
+
       </section>
     </body>
 </html>
