@@ -9,10 +9,8 @@ public class UserInput {
 	private static Scanner inputScanner;
 	
 	public static void main(String[] args) {
-
-		String databaseConnection = "jdbc:sqlserver://localhost;databaseName=TraitsDB;user=traits_app;password=12345";
 		
-		TraitRandomiser randomiser = new TraitRandomiser(databaseConnection);
+		TraitRandomiser randomiser = new TraitRandomiser();
 		
 		// Create scanner to read input from user
 		inputScanner = new Scanner(System.in);

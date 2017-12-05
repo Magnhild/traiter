@@ -1,23 +1,19 @@
 package main.java;
+
+import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.*;
 
 public class TraitRandomiser {
-
-	// Attributes
-	private String mDatabaseConnection;
 	
 	// Constructors
-	public TraitRandomiser(String databaseConnection) {
-		
-		mDatabaseConnection = databaseConnection;
-	}
+	public TraitRandomiser() { }
 	
 	// Methods
 	public Trait generateTrait(int nature) {
 
 		// Retrieve traits from database
-		ArrayList<Trait> traits = TraitRandomiser.getTraitsFromDatabase(mDatabaseConnection);
+		ArrayList<Trait> traits = TraitRandomiser.getTraitsFromDatabase();
 		
 		if (nature != 4) {
 
@@ -69,13 +65,18 @@ public class TraitRandomiser {
 		return randomNumber;
 	}
 
-	private static ArrayList<Trait> getTraitsFromDatabase(String databaseConnection) {
+	private static ArrayList<Trait> getTraitsFromDatabase() {
 
 		ArrayList<Trait> traitList = new ArrayList<Trait>();
 
 		// Retrieve data from database
-		String query = "SELECT T.id AS id, T.name AS name, C.name AS category, T.nature AS nature FROM TaTraits AS T LEFT JOIN TaCategories AS C ON T.category_id = C.id;";
-		ResultSet results = executeQueryOnDatabase(databaseConnection, query);
+		String query = "SELECT T.id AS id, T.name AS name, C.name AS category, N.code AS nature " +
+            "FROM TaTraits AS T " +
+            "LEFT JOIN TaCategories AS C " +
+            "ON T.category_id = C.id " +
+            "LEFT JOIN TaNature AS N " +
+            "ON T.nature_id = N.id;";
+		ResultSet results = executeQueryOnDatabase(query);
 
 		// Retrieve traits from database result set
 		try {
@@ -99,9 +100,25 @@ public class TraitRandomiser {
 		return traitList;
 	}
 
-	private static ResultSet executeQueryOnDatabase(String connectionString, String query) {
+	private static ResultSet executeQueryOnDatabase(String query) {
 
 		ResultSet resultSet = null;
+
+		try {
+
+			Connection connection = getConnection();
+			Statement statement = connection.createStatement();
+			resultSet = statement.executeQuery(query);
+
+		} catch (URISyntaxException | SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return resultSet;
+	}
+
+	private static Connection getConnection() throws URISyntaxException, SQLException {
 
 		try {
 
@@ -113,17 +130,7 @@ public class TraitRandomiser {
 			e.printStackTrace();
 		}
 
-		try {
-
-			Connection connection = DriverManager.getConnection(connectionString);
-			Statement statement = connection.createStatement();
-			resultSet = statement.executeQuery(query);
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-
-		return resultSet;
+		String dbUrl = System.getenv("JDBC_DATABASE_URL");
+		return DriverManager.getConnection(dbUrl);
 	}
 }
