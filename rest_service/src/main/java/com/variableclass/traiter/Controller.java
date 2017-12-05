@@ -2,6 +2,7 @@ package com.variableclass.traiter;
 
 import com.google.gson.*;
 import main.java.Trait;
+import main.java.TraitRandomiser;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,7 +19,8 @@ public class Controller {
     JsonObject jsonRequestBody = parser.parse(requestBody).getAsJsonObject();
 
     // Generate trait
-    Trait trait = new Trait(1, "My Trait", "A Category", 0);
+    TraitRandomiser randomiser = new TraitRandomiser();
+    Trait trait = randomiser.generateTrait(4);
 
     String traitSentence = "Your trait is " + trait.getName();
 
