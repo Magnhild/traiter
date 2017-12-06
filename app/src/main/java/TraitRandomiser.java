@@ -70,9 +70,9 @@ public class TraitRandomiser {
 		ArrayList<Trait> traitList = new ArrayList<Trait>();
 
 		// Retrieve data from database
-		String query = "SELECT T.id AS id, T.name AS name, C.name AS category, N.code AS nature " +
-            "FROM TaTraits AS T " +
-            "LEFT JOIN TaCategories AS C " +
+		String query = "SELECT T.id AS id, T.name AS name, C.label AS category, N.code AS nature " +
+            "FROM TaTrait AS T " +
+            "LEFT JOIN TaCategory AS C " +
             "ON T.category_id = C.id " +
             "LEFT JOIN TaNature AS N " +
             "ON T.nature_id = N.id;";
@@ -123,7 +123,7 @@ public class TraitRandomiser {
 		try {
 
 			// Load driver
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			Class.forName("org.postgresql.Driver");
 
 		} catch (ClassNotFoundException e) {
 
@@ -131,6 +131,8 @@ public class TraitRandomiser {
 		}
 
 		String dbUrl = System.getenv("JDBC_DATABASE_URL");
+		
 		return DriverManager.getConnection(dbUrl);
 	}
 }
+
