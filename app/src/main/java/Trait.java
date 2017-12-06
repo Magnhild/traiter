@@ -5,12 +5,12 @@ public class Trait {
 	// Attributes
 	private int mId; 
 	private String mName;
-	private String mCategory;
+	private int mCategory;
 	private int mNature;
 	
 	
 	// Constructor
-	public Trait(int id, String name, String category, int nature) {
+	public Trait(int id, String name, int category, int nature) {
 		
 		mId = id;
 		mName = name;
@@ -38,7 +38,7 @@ public class Trait {
 		return mName;	
 	}
 	
-	public String getCategory() {
+	public int getCategory() {
 		
 		return mCategory;
 	}
@@ -52,7 +52,7 @@ public class Trait {
 		mName = name;		
 	}
 	
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		mCategory = category; 
 	}
 

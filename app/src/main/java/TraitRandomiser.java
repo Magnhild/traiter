@@ -10,7 +10,7 @@ public class TraitRandomiser {
 	public TraitRandomiser() { }
 	
 	// Methods
-	public Trait generateTrait(int nature) {
+	public Trait generateTrait(int nature, int category) {
 
 		// Retrieve traits from database
 		ArrayList<Trait> traits = TraitRandomiser.getTraitsFromDatabase();
@@ -18,7 +18,14 @@ public class TraitRandomiser {
 		if (nature != 4) {
 
 			// Determine subset of traits to choose from
-			traits =  filterTraitList(nature, traits);
+			traits =  filterTraitListNature(nature, traits);
+			
+		}
+		
+		if (category != 5) {
+
+			// Determine subset of traits to choose from
+			traits =  filterTraitListCategory(category, traits);
 		}
 
 		// If trait list is empty, give error message
@@ -37,7 +44,7 @@ public class TraitRandomiser {
     return randomlySelectedTrait;
 	}
 
-	private static ArrayList<Trait> filterTraitList(int nature, ArrayList<Trait> traits) {
+	private static ArrayList<Trait> filterTraitListNature(int nature, ArrayList<Trait> traits) {
 
 		// Create new list
 		ArrayList<Trait> subTraitList = new ArrayList<Trait>();
@@ -53,7 +60,24 @@ public class TraitRandomiser {
 
 		return subTraitList;
 	}
+	
+	private static ArrayList<Trait> filterTraitListCategory(int category, ArrayList<Trait> traits) {
 
+		// Create new list
+		ArrayList<Trait> subTraitList = new ArrayList<Trait>();
+
+		// Look through main list
+		for (Trait trait : traits) {
+
+			if (category == trait.getCategory()) {
+
+				subTraitList.add(trait);
+			}
+		}
+
+		return subTraitList;
+	}
+	
 	private static int generateRandomNumber(int lowerBound, int upperBound) {
 
 		// Create new Random object, from which to draw a new random number
@@ -70,7 +94,7 @@ public class TraitRandomiser {
 		ArrayList<Trait> traitList = new ArrayList<Trait>();
 
 		// Retrieve data from database
-		String query = "SELECT T.id AS id, T.name AS name, C.label AS category, N.code AS nature " +
+		String query = "SELECT T.id AS id, T.name AS name, C.id AS category, N.code AS nature " +
             "FROM TaTrait AS T " +
             "LEFT JOIN TaCategory AS C " +
             "ON T.category_id = C.id " +
@@ -85,7 +109,7 @@ public class TraitRandomiser {
 
 				int traitId = results.getInt("id");
 				String traitName = results.getString("name");
-				String traitCategory = results.getString("category");
+				int traitCategory = results.getInt("category");
 				int traitNature = results.getInt("nature");
 
 				Trait trait = new Trait(traitId, traitName, traitCategory, traitNature);

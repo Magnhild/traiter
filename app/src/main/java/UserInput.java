@@ -21,9 +21,10 @@ public class UserInput {
 	    do {
 	
 	      int nature = retrieveNatureFromUser();
-	
+	      int category = retrieveCategoryFromUser();
+	      
   	      // Perform trait generation
-  		  trait = randomiser.generateTrait(nature);
+  		  trait = randomiser.generateTrait(nature, category);
   		  
   		  if (trait != null) {
   			  
@@ -98,6 +99,74 @@ public class UserInput {
 		return userNature;
 	}
 
+	private static int retrieveCategoryFromUser() {
+		
+		int userCategory = 5;
+
+		// Read user choice of trait category and validate it is correct
+		boolean validInput = false;
+		do {
+
+			// Ask for user input of trait nature
+			System.out.println("Which category would you prefer?");
+			System.out.println("1. Lifestyle");
+			System.out.println("2. Social");
+			System.out.println("3. Emotional");
+			System.out.println("4. Hobby");
+			System.out.println("5. Random");
+
+			// Read user input and validate it is numerical
+			try {
+
+				userCategory = inputScanner.nextInt();
+				inputScanner.nextLine();
+				validInput = true;
+
+			} catch (InputMismatchException ex) {
+
+				System.out.println("Input must be numerical!");
+				inputScanner.nextLine();
+				validInput = false;
+			}
+
+			if (!validInput) {
+
+				break;
+			}
+
+			// Check if user input is a valid selection
+			switch (userCategory) {
+			case 1:
+				userCategory = 1;
+				validInput = true;
+				break;
+			case 2:
+				userCategory = 2;
+				validInput = true;
+				break;
+			case 3:
+				userCategory = 3;
+				validInput = true;
+				break;
+			case 4:
+				userCategory = 4;
+				validInput = true;
+				break;
+			case 5:
+				userCategory = 5;
+				validInput = true;
+				break;
+			default:
+				System.out.println("Input should be '1', '2', '3', '4' or '5'");
+				validInput = false;
+				break;
+			}
+
+		} while (!validInput);
+		
+		return userCategory;		
+	}
+	
 	private static boolean confirmGenerateAgain(){
 
 	    boolean generateAgain = false;

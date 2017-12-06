@@ -42,7 +42,7 @@ public class TraitFileReader {
 				
 				// Store the 3 parts of the line as new variables
 				String name = traitArray[0];
-				String category = traitArray[1];
+				int category = Integer.parseInt(traitArray[1]);
 				int nature = Integer.parseInt(traitArray[2]);
 				
 				// Create new trait from these variables
