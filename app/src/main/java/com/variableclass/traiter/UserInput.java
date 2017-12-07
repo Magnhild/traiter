@@ -11,11 +11,10 @@ public class UserInput {
 	// Attributes
 	private static Scanner inputScanner;
 
-
-  // Methods
+	// Methods
 	public static void main(String[] args) {
 
-    TraitRandomiser randomiser = new TraitRandomiser();
+		TraitRandomiser randomiser = new TraitRandomiser();
 
 		// Create scanner to read input from user
 		inputScanner = new Scanner(System.in);
@@ -28,10 +27,10 @@ public class UserInput {
 			Nature nature = retrieveNatureFromUser(randomiser.getNatures());
 			Category category = retrieveCategoryFromUser(randomiser.getCategories());
 
-				// Perform trait generation
+			// Perform trait generation
 			trait = randomiser.generateTrait(nature, category);
 
-			if (trait == null){
+			if (trait == null) {
 
 				System.out.println("No traits found in this category.");
 				continue;
@@ -46,7 +45,7 @@ public class UserInput {
 
 	private static Nature retrieveNatureFromUser(ArrayList<Nature> natures) {
 
-	  Nature returnNature = null;
+		Nature returnNature = null;
 
 		// Read user choice of trait nature and validate it is correct
 		boolean validInput;
@@ -57,70 +56,18 @@ public class UserInput {
 
 			// Iterate through all natures and display to user
 			int index = 1;
-			for (Nature nature : natures){
+			for (Nature nature : natures) {
 
-			  System.out.println(index + ". " + nature.getLabel());
-			  index++;
-      }
+				System.out.println(index + ". " + nature.getLabel());
+				index++;
+			}
 
 			System.out.println(index + ". Random");
 
 			// Read user input and validate it is numerical
 			int userInput = 0;
 
-      try {
-
-        userInput = inputScanner.nextInt();
-				inputScanner.nextLine();
-
-			} catch (InputMismatchException ex) {
-
-				System.out.println("Input must be numerical!");
-				inputScanner.nextLine();
-			}
-
-			// Check if user input is a valid selection
-      if ((userInput > 0) && (userInput <= natures.size())){
-
-        returnNature = natures.get(userInput - 1);
-			  validInput = true;
-
-			} else {
-
-        System.out.println("Input should be one of the displayed numbers!");
-        validInput = false;
-      }
-
-		} while (!validInput);
-
-		return returnNature;
-	}
-
-	private static Category retrieveCategoryFromUser(ArrayList<Category> categories) {
-
-	  Category returnCategory = null;
-
-		// Read user choice of trait category and validate it is correct
-		boolean validInput;
-		do {
-
-			// Ask for user input of trait nature
-			System.out.println("Which category would you prefer?");
-
-			// Iterate through all categories and display to user
-      int index = 1;
-      for (Category category : categories){
-
-        System.out.println(index + ". " + category.getLabel());
-        index++;
-      }
-
-      System.out.println(index + ". Random");
-
-			// Read user input and validate it is numerical
-			int userInput = 0;
-
-      try {
+			try {
 
 				userInput = inputScanner.nextInt();
 				inputScanner.nextLine();
@@ -132,57 +79,119 @@ public class UserInput {
 			}
 
 			// Check if user input is a valid selection
-      if ((userInput > 0) && (userInput <= categories.size())){
+			if ((userInput > 0) && (userInput <= natures.size())) {
 
-        returnCategory = categories.get(userInput - 1);
-        validInput = true;
+				returnNature = natures.get(userInput - 1);
+				validInput = true;
 
-      } else {
+			} else if ((userInput == (natures.size() + 1))){
+				
+				returnNature = null;
+				validInput = true;
+				
+			} else {
 
-        System.out.println("Input should be one of the displayed numbers!");
-        validInput = false;
-      }
+				System.out.println("Input should be one of the displayed numbers!");
+				validInput = false;
+			}
+
+		} while (!validInput);
+
+		return returnNature;
+	}
+
+	private static Category retrieveCategoryFromUser(ArrayList<Category> categories) {
+
+		Category returnCategory = null;
+
+		// Read user choice of trait category and validate it is correct
+		boolean validInput;
+		do {
+
+			// Ask for user input of trait nature
+			System.out.println("Which category would you prefer?");
+
+			// Iterate through all categories and display to user
+			int index = 1;
+			for (Category category : categories) {
+
+				System.out.println(index + ". " + category.getLabel());
+				index++;
+			}
+
+			System.out.println(index + ". Random");
+
+			// Read user input and validate it is numerical
+			int userInput = 0;
+
+			try {
+
+				userInput = inputScanner.nextInt();
+				inputScanner.nextLine();
+
+			} catch (InputMismatchException ex) {
+
+				System.out.println("Input must be numerical!");
+				inputScanner.nextLine();
+			}
+
+			// Check if user input is a valid selection
+			if ((userInput > 0) && (userInput <= categories.size())) {
+
+				returnCategory = categories.get(userInput - 1);
+				validInput = true;
+								
+			} else if ((userInput == (categories.size() + 1))){
+				
+				returnCategory = null;
+				validInput = true;
+
+			} else {
+
+				System.out.println("Input should be one of the displayed numbers!");
+				validInput = false;
+			}
 
 		} while (!validInput);
 
 		return returnCategory;
 	}
 
-	private static boolean confirmGenerateAgain(){
+	private static boolean confirmGenerateAgain() {
 
-	    boolean generateAgain = false;
+		boolean generateAgain = false;
 
-	    // Ask user if they wish to generate another trait
-	    boolean inputIsYesOrNo;
-	    do {
+		// Ask user if they wish to generate another trait
+		boolean inputIsYesOrNo;
+		do {
 
-	      // Check if user would like another trait
-	      System.out.println("Would you like another? (Y/n)");
+			// Check if user would like another trait
+			System.out.println("Would you like another? (Y/n)");
 
-	      // Read their response
-	      String userResponse = inputScanner.nextLine();
+			// Read their response
+			String userResponse = inputScanner.nextLine();
 
-	      // Check if input is empty
-        switch ((userResponse.trim())) {
-          case "n":
-            generateAgain = false;
-            inputIsYesOrNo = true;
-            break;
+			// Check if input is empty
+			switch ((userResponse.trim())) {
+			case "n":
+				generateAgain = false;
+				inputIsYesOrNo = true;
+				break;
 
-          case "y":
-            generateAgain = true;
-            inputIsYesOrNo = true;
-            break;
+			case "y":
+				generateAgain = true;
+				inputIsYesOrNo = true;
+				break;
 
-          default:
-            System.out.println("Input should be 'y' or 'n'");
-            inputIsYesOrNo = false;
-            break;
-        }
+			default:
+				System.out.println("Input should be 'y' or 'n'");
+				inputIsYesOrNo = false;
+				break;
+			}
 
-	    } while (!inputIsYesOrNo);
+		} while (!inputIsYesOrNo);
 
-	    return generateAgain;
-	  }
+		return generateAgain;
+	}
 
 }
