@@ -1,5 +1,5 @@
-var traitRandomiserWebApp = {};
-traitRandomiserWebApp.navigation = {};
+var traiter = {};
+traiter.navigation = {};
 
 // Define a constant for the active navigation element class name
 const ACTIVE = "active";
@@ -18,25 +18,25 @@ var divAbout = document.getElementById("about");
 // Pass a new function to the onclick of each navigation element
 navHome.onclick = function(){
 
-  traitRandomiserWebApp.navigation.selectNavbarItem(navHome);
+  traiter.navigation.selectNavbarItem(navHome);
 
-  traitRandomiserWebApp.navigation.selectDiv(divHome);
+  traiter.navigation.selectDiv(divHome);
 }
 navGenerate.onclick = function(){
 
-  traitRandomiserWebApp.navigation.selectNavbarItem(navGenerate);
+  traiter.navigation.selectNavbarItem(navGenerate);
 
-  traitRandomiserWebApp.navigation.selectDiv(divGenerate);
+  traiter.navigation.selectDiv(divGenerate);
 }
 navAbout.onclick = function(){
 
-  traitRandomiserWebApp.navigation.selectNavbarItem(navAbout);
+  traiter.navigation.selectNavbarItem(navAbout);
 
-  traitRandomiserWebApp.navigation.selectDiv(divAbout);
+  traiter.navigation.selectDiv(divAbout);
 }
 
 // Helper functions
-traitRandomiserWebApp.navigation.deselectAllNavItems = function(){
+traiter.navigation.deselectAllNavItems = function(){
 
   // Retrieve all currently selected items and deselect them
   var activeNavItems = document.getElementsByClassName(ACTIVE);
@@ -46,15 +46,15 @@ traitRandomiserWebApp.navigation.deselectAllNavItems = function(){
      activeNavItems[i].classList.remove(ACTIVE);
   };
 };
-traitRandomiserWebApp.navigation.selectNavbarItem = function(navbarItem){
+traiter.navigation.selectNavbarItem = function(navbarItem){
 
-  traitRandomiserWebApp.navigation.deselectAllNavItems();
+  traiter.navigation.deselectAllNavItems();
 
   // Select the passed item
   navbarItem.classList.add(ACTIVE);
 };
 
-traitRandomiserWebApp.navigation.hideAllDivs = function(){
+traiter.navigation.hideAllDivs = function(){
 
   // Retrieve all divs and hide them
   var divs = document.getElementsByTagName("div");
@@ -64,9 +64,9 @@ traitRandomiserWebApp.navigation.hideAllDivs = function(){
     divs[i].classList.add(HIDDEN);
   };
 };
-traitRandomiserWebApp.navigation.selectDiv = function(div){
+traiter.navigation.selectDiv = function(div){
 
-  traitRandomiserWebApp.navigation.hideAllDivs();
+  traiter.navigation.hideAllDivs();
 
   // Show the passed div
   div.classList.remove(HIDDEN);
