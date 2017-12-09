@@ -65,7 +65,7 @@ public class TraitRandomiser {
     for (Nature nature : mNatures){
 
       // If label matches label of nature
-      if (nature.getLabel().toUpperCase() == label.toUpperCase()){
+      if (nature.getLabel().toUpperCase().equals(label.toUpperCase())){
 
         return nature;
       }
@@ -95,7 +95,7 @@ public class TraitRandomiser {
     for (Category category : mCategories){
 
       // If ID matches ID of category
-      if (category.getLabel().toUpperCase() == label.toUpperCase()){
+      if (category.getLabel().toUpperCase().equals(label.toUpperCase())){
 
         return category;
       }
