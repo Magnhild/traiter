@@ -31,3 +31,4 @@ target
 *.iml
 out/
 .idea/
+.settings/
