@@ -1,8 +1,7 @@
 package com.variableclass.traiter;
 
 import com.google.gson.*;
-import com.variableclass.Trait;
-import main.java.TraitRandomiser;
+import com.variableclass.traiter.models.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +19,7 @@ public class Controller {
 
     // Generate trait
     TraitRandomiser randomiser = new TraitRandomiser();
-    Trait trait = randomiser.generateTrait(4);
+    Trait trait = randomiser.generateTrait(null, null);
 
     String traitSentence = "Your trait is " + trait.getName();
 
