@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class Controller {
 
   @RequestMapping(
-          value = "/traits/generate",
+          value = "/alexa",
           method = RequestMethod.POST,
           produces = "application/json"
   )
