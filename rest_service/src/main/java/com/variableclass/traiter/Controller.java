@@ -1,7 +1,7 @@
 package com.variableclass.traiter;
 
 import com.google.gson.*;
-import main.java.Trait;
+import com.variableclass.Trait;
 import main.java.TraitRandomiser;
 import org.springframework.web.bind.annotation.*;
 
