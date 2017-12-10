@@ -3,8 +3,6 @@ package com.variableclass.traiter;
 import com.google.gson.*;
 import com.variableclass.traiter.models.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @RestController
@@ -16,22 +14,34 @@ public class Controller {
           produces = "application/json"
   )
   public String getTrait(@RequestBody String requestBody){
-	
+
 	// Parse request body string to JSON
     JsonParser parser = new JsonParser();
     JsonObject jsonRequestBody = parser.parse(requestBody).getAsJsonObject();
-    
+
     // Initalise new trait randomiser
     TraitRandomiser randomiser = new TraitRandomiser();
-    
+
     // Attempt to retrieve any filters from the JSON
     Nature nature = getNatureFromJson(jsonRequestBody, randomiser);
     Category category = getCategoryFromJson(jsonRequestBody, randomiser);
-    
+
     // Generate a trait
     Trait trait = randomiser.generateTrait(nature, category);
 
-    String traitSentence = "Your trait is " + trait.getName();
+    String traitSentence;
+    String cardTitle;
+
+    if (trait != null){
+
+      traitSentence = "Your trait is " + trait.getName();
+      cardTitle = trait.getName();
+
+    } else {
+
+      traitSentence = "No trait could be found of the given parameters.";
+      cardTitle = "No Trait Found";
+    }
 
     JsonObject outputSpeech = new JsonObject();
     outputSpeech.addProperty("type", "PlainText");
@@ -39,7 +49,7 @@ public class Controller {
 
     JsonObject card = new JsonObject();
     card.addProperty("type", "Simple");
-    card.addProperty("title", "Trait: " + trait.getName());
+    card.addProperty("title", cardTitle);
     card.addProperty("content", traitSentence);
 
     String version = jsonRequestBody.get("version").getAsString();
@@ -50,7 +60,7 @@ public class Controller {
     response.add("outputSpeech", outputSpeech);
     response.add("card", card);
     response.addProperty("shouldEndSession", true);
-    
+
     JsonObject jsonResponse = new JsonObject();
     jsonResponse.addProperty("version", version);
     jsonResponse.add("sessionAttributes", sessionAttributes);
@@ -58,22 +68,22 @@ public class Controller {
 
     return jsonResponse.toString();
   }
-  
+
   private Nature getNatureFromJson(JsonObject json, TraitRandomiser randomiser) {
 
     String natureLabel = null;
 
 	  try {
-		    
+
 	    // Retrieve nature label from JSON request body
       JsonObject jsonRequest = json.get("request").getAsJsonObject();
       JsonObject jsonIntent = jsonRequest.get("intent").getAsJsonObject();
 	    JsonObject jsonSlots = jsonIntent.get("slots").getAsJsonObject();
-	    JsonObject jsonNature = jsonSlots.get("Nature").getAsJsonObject();
+	    JsonObject jsonNature = jsonSlots.get("nature").getAsJsonObject();
 	    natureLabel = jsonNature.get("value").getAsString().toUpperCase();
-	    
+
     } catch (NullPointerException e) {
-    	
+
     }
 
     ArrayList<String> positiveSynonyms = new ArrayList<>();
@@ -120,28 +130,40 @@ public class Controller {
       natureLabel = "NEGATIVE";
     }
 
+    // Check if nature label is null
+    if (natureLabel == null){
+
+      return null;
+    }
+
     // Retrieve nature of Alexa-provided label
     return randomiser.getNatureFromLabel(natureLabel);
   }
-  
+
   private Category getCategoryFromJson(JsonObject json, TraitRandomiser randomiser) {
-	  
+
+    String categoryLabel = null;
+
   	try {
-      
+
 	    // Retrieve category label from JSON request body
       JsonObject jsonRequest = json.get("request").getAsJsonObject();
 	    JsonObject jsonIntent = jsonRequest.get("intent").getAsJsonObject();
 	    JsonObject jsonSlots = jsonIntent.get("slots").getAsJsonObject();
-	    JsonObject jsonCategory = jsonSlots.get("Category").getAsJsonObject();
-	    String categoryLabel = jsonCategory.get("value").getAsString().toUpperCase();
-	    
-	    // Retrieve category of Alexa-provided label
-	    return randomiser.getCategoryFromLabel(categoryLabel);
-	    
+	    JsonObject jsonCategory = jsonSlots.get("category").getAsJsonObject();
+	    categoryLabel = jsonCategory.get("value").getAsString().toUpperCase();
+
     } catch (NullPointerException e) {
-    	
+
     }
-  	
-  	return null;
+
+    // Check if category label is null
+    if (categoryLabel == null){
+
+  	  return null;
+    }
+
+    // Retrieve category of Alexa-provided label
+    return randomiser.getCategoryFromLabel(categoryLabel);
   }
 }
