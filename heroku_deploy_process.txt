@@ -1,0 +1,11 @@
+Export Java app to JAR
+cp ~/workspace/traiter/app/out/artifacts/trait_randomiser_jar/app.jar ~/workspace/traiter/rest_service/src/main/java/resources/trait_randomiser.jar
+rm -rf ~/workspace/traiter/rest_service/src/main/java/resources/com/
+mvn deploy:deploy-file -Durl=file:///Users/callum/workspace/traiter/rest_service/src/main/java/resources/ -Dfile=/Users/callum/workspace/traiter/rest_service/src/main/java/resources/trait_randomiser.jar -DgroupId=com.variableclass  -DartifactId=trait_randomiser -Dpackaging=jar -Dversion=1.0
+mvn dependency:purge-local-repository
+mvn clean install
+(heroku plugins:install heroku-repo)
+heroku repo:purge_cache -a traiter
+git add ...
+git commit -m "..."
+git push heroku master
