@@ -1,0 +1,74 @@
+_id: req_dc4ced1882b243dea915bcf5d68a6cd0
+type: Request
+parentId: fld_ac94ffeb42b344bda1720a3dd877a9a0
+modified: 1684143942842
+created: 1684143942842
+url: "{{traiter}}/alexa"
+name: Get Trait
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+      "session": {
+        "new": false,
+        "sessionId": "SessionId.fb6a42ea-400c-4702-a054-2a12621703f5",
+        "application": {
+          "applicationId": "amzn1.ask.skill.e05b136d-4415-4917-b35a-6fc508805ebd"
+        },
+        "attributes": {},
+        "user": {
+          "userId": "amzn1.ask.account.AF3NL6PYJ4A7HASH3JIW5SUWWNWPBITLKVVHFGAP4KT45XQX2ICH2XM3BMBMGT6DLMCS3QL3HVN3RFQXG5SG63UKWY7ZAPU77JXVXDI5H66MMN2OINB5GH35ABK2KCP435KH3CF25JJW5I2LB2YUB773EAKJXGYW2X6JTGZNL3MIZ4DUJ4S3R7TN7RMYIBRVNP26WI3GG2CN3YA"
+        }
+      },
+      "request": {
+        "type": "IntentRequest",
+        "requestId": "EdwRequestId.a8c88f88-5166-4691-9966-0a483f4f2c45",
+        "intent": {
+          "name": "GenerateTrait",
+          "slots": {
+            "Nature": {
+              "name": "Nature",
+              "value": "neutral"
+            },
+            "Category": {
+              "name": "Category",
+              "value":"lifestyle"
+            }
+          }
+        },
+        "locale": "en-GB",
+        "timestamp": "2017-12-09T23:33:30Z"
+      },
+      "context": {
+        "AudioPlayer": {
+          "playerActivity": "IDLE"
+        },
+        "System": {
+          "application": {
+            "applicationId": "amzn1.ask.skill.e05b136d-4415-4917-b35a-6fc508805ebd"
+          },
+          "user": {
+            "userId": "amzn1.ask.account.AF3NL6PYJ4A7HASH3JIW5SUWWNWPBITLKVVHFGAP4KT45XQX2ICH2XM3BMBMGT6DLMCS3QL3HVN3RFQXG5SG63UKWY7ZAPU77JXVXDI5H66MMN2OINB5GH35ABK2KCP435KH3CF25JJW5I2LB2YUB773EAKJXGYW2X6JTGZNL3MIZ4DUJ4S3R7TN7RMYIBRVNP26WI3GG2CN3YA"
+          },
+          "device": {
+            "supportedInterfaces": {}
+          }
+        }
+      },
+      "version": "1.0"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1684143921027
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
